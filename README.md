@@ -7,6 +7,12 @@ stocks, using the [Angel One SmartAPI](https://smartapi.angelbroking.com/).
   `/api/symbols`, `/api/quote/{symbol}` and `/api/historical/{symbol}`.
 - `frontend/` — React (Vite + Tailwind) dashboard: search a symbol, see its live
   LTP/OHLC, and a candlestick chart with selectable interval/lookback.
+- `backend/db/` — async ingestion pipeline (httpx/asyncio, PostgreSQL, Pandas)
+  that backfills and maintains daily OHLCV for tracked NSE stocks in the
+  `nse_data` PostgreSQL database. It uses a bounded-semaphore rate limit,
+  retries, calendar-based gap detection, and a stored function that validates
+  rows and quarantines bad data. See [backend/db/README.md](backend/db/README.md)
+  for setup steps.
 
 ## Prerequisites
 
